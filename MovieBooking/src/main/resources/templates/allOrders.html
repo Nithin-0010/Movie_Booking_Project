@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>All Orders</title>
+<link rel="stylesheet" th:href="@{/css/headStyle.css}">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css}">
+</head>
+<body>
+<div class="hd-main">
+       <div>
+        <a th:href="@{/back}">
+            <img id="lgo" alt="logo" th:src="@{/images/logo.jpg}">
+         </a>
+      </div>
+      
+      <div class="search-box">
+         <form th:action="@{/search}" method="get" style="display: flex;">
+            <input type="search" placeholder="Search Movies By Name" aria-label="Search" class="search-input" name="movieName">
+              <button class="search-button">
+              <span class="search-icon"></span>
+              </button>
+         </form>
+      </div>
+      
+      <div class="button-container">
+         <a th:href="@{/AdminSettings}" class="btn login-btn" id="usr-btn"><span th:text="${admin.name}"></span></a>
+         <a th:href="@{/logout}" class="btn signup-btn" id="usr-btn">Logout</a>
+      </div>
+   </div>
+   
+   <div class="flex"> 
+      <aside class="sidebar hm-sidebar" id="sde">
+            <div class="sidebar-header">
+                <h1>Inamkes Gold Theatre</h1>
+            </div>
+            <nav class="nav">
+                <a th:href="@{/adminHome}"><i class="fa fa-home"></i> Home</a>
+                <a th:href="@{/adminSettings}"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a th:href="@{/addMovies}"><i class="fa-solid fa-plus"></i> Add Movies</a>
+                <a th:href="@{/orders}"><i class="fa-solid fa-clock-rotate-left"></i> Orders</a>
+                <a th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </nav>
+        </aside>
+        
+        <div class="usrOrder-container">
+           <table>
+              <thead>
+                 <tr>
+                    <th><strong>User Id</strong>
+                    <th><strong>Movie</strong>
+                    <th><strong>Booking Date</strong>
+                    <th><strong>Show Date</strong>
+                    <th><strong>Show Time</strong>
+                    <th><strong>Total</strong>
+                 </tr>
+              </thead>
+              <tbody>
+                 <tr th:each="orderInfo : ${allOrders}">
+                    <td th:text="${orderInfo.customer.name}"></td>
+                    <td th:text="${orderInfo.movieName}"></td>
+                    <td th:text="${#dates.format(orderInfo.bookOnDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${#dates.format(orderInfo.showOnDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${orderInfo.showTime}"></td>
+                    <td th:text="${orderInfo.total}"></td>
+                 </tr>
+              </tbody>
+           </table>
+       </div>
+   </div>
+</body>
+</html>

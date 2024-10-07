@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Add Movies</title>
+<link rel="stylesheet" th:href="@{/css/headStyle.css}">
+<link rel="stylesheet" th:href="@{/css/addMovieStyle.css}">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css}">
+</head>
+<body>
+<body>
+  <div class="hd-main">
+       <div>
+        <a th:href="@{/back}">
+            <img id="lgo" alt="logo" th:src="@{/images/logo.jpg}">
+         </a>
+      </div>
+      
+      <div class="search-box">
+         <form th:action="@{/search}" method="get" style="display: flex;">
+            <input type="search" placeholder="Search Movies By Name" aria-label="Search" class="search-input" name="movieName">
+              <button class="search-button">
+              <span class="search-icon"></span>
+              </button>
+         </form>
+      </div>
+      
+      <div class="button-container">
+         <a th:href="@{/adminSettings}" class="btn login-btn" id="usr-btn"><span th:text="${admin.name}"></span></a>
+         <a th:href="@{/logout}" class="btn signup-btn" id="usr-btn">Logout</a>
+      </div>
+   </div>
+   
+   <div class="container"> <!-- styles set as flex -->
+      <aside class="sidebar" style="height: 100vh; width: 190px;">
+            <div class="sidebar-header">
+                <h1>Inamkes Gold Theatre</h1>
+            </div>
+            <nav class="nav">
+            <!--<a th:href="@{/home}"><i class="fa fa-home"></i> Home</a>  -->
+                
+                <a th:href="@{/adminSettings}"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a th:href="@{/allOrders}"><i class="fa-solid fa-clock-rotate-left"></i> Orders</a>
+                <a th:href="@{/addMovies}"><i class="fa-solid fa-plus"></i> Add Movies</a>
+                <a th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </nav>
+        </aside>
+        <main class="add-movie-section">
+          <h1>Add Movie</h1>
+          <form th:action="@{/admin}" method="POST" enctype="multipart/form-data">
+            <label for="movieName">Movie Name:</label>
+            <input type="text" id="movieName" name="movieName" required><br>
+
+            <label for="movieGenre">Movie Genre:</label>
+            <input type="text" id="movieGenre" name="movieGenre" required><br>
+
+            <label for="movieImg">Movie Image:</label>
+            <input type="file" id="movieImg" name="movieImg" required><br>
+
+            <button type="submit">Add Movie</button>
+          </form>
+        </main>
+   </div>
+</body>
+</body>
+</html>

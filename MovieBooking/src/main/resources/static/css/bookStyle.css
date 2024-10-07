@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+.main-booking-content {
+    width: 900px;
+    margin-left: 80px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.booking-container {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.date-time-selection {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+}
+
+.summary {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.seat-key {
+	background-color: #f0f0f0;
+    display: flex;
+    justify-content:space-around;
+    margin-bottom: 20px;
+}
+
+.key-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.seat-selection label {
+    border: 2px solid green; 
+    border-radius: 5px;
+    background-color: green;
+    color: white; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 30px; 
+    height: 30px; 
+    margin-bottom: 10px;
+}
+
+/* Selected seat style */
+.mybtn:checked+label,
+.box1:checked+label {
+    background-color: white;
+    color: green;
+    border: 2px solid green;
+}
+
+
+/*.seat input[type="checkbox"]:checked + label {
+    background-color: red;  Change color when selected 
+    color: white;
+} */
+
+.already-booked {
+	width: 30px;
+	height: 30px;
+	border-radius: 5px;
+    background-color: red;
+} 
+
+.available {
+	width: 30px;
+	height: 30px;
+	border-radius: 5px;
+	background-color: green;
+}
+
+.seat-selection {
+	width: 900px;
+    display: grid;
+    grid-template-columns: 420px 420px;
+    margin: 20px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;  
+    margin-bottom: 10px;
+}
+
+.col1 {
+	grid-template-columns: repeat(10, 1fr);  
+	margin-right: 30px;
+}
+
+.book-seat-btn {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    margin: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Edit Admin</title>
+<link rel="stylesheet" th:href="@{/css/headStyle.css}">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css}">
+</head>
+<body>
+      <div class="hd-main">
+       <div>
+         <img id="lgo" alt="logo" th:src="@{/images/logo.jpg}">
+      </div>
+      
+      <div class="search-box">
+         <form th:action="@{/search}" method="get" style="display: flex;">
+            <input type="search" placeholder="Search Movies By Name" aria-label="Search" class="search-input" name="movieName">
+              <button class="search-button">
+              <span class="search-icon"></span>
+              </button>
+         </form>
+      </div>
+      
+      <div class="button-container">
+         <button class="btn login-btn"><span th:text="${admin.name}"></span></button>
+         <button class="btn signup-btn">Logout</button>
+      </div>
+   </div>
+   
+      <div class="flex"> 
+      <aside class="sidebar hm-sidebar" id="sde">
+            <div class="sidebar-header">
+                <h1>Inamkes Gold Theatre</h1>
+            </div>
+            <nav class="nav">
+                <a th:href="@{/adminSettings}"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a th:href="@{/allOrders}"><i class="fa-solid fa-clock-rotate-left"></i> Orders</a>
+                <a th:href="@{/addMovies}"><i class="fa-solid fa-plus"></i> Add Movies</a>
+                <a th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </nav>
+        </aside>
+        
+        <div class="editContainer mt-5">
+           <form th:action="@{/updateAdmin}" method="get">
+              <div class="card" style="width: 18rem;">
+               <div class="card-body">
+                   <h5 class="card-title">User Id</h5>
+                   <label class="card-text" th:text="${admin.id}"></label>
+                   <h5 class="card-title">Username</h5>
+                   <input type="text" class="card-text" name="name">
+                   <h5 class="card-title">Email</h5>
+                   <input type="email" class="card-text" name="email">
+                   <h5 class="card-title">Password</h5>
+                   <input type="password" class="card-text" name="password">
+                   <button class="movie-btn">Submit</button>
+               </div>
+              </div>
+           </form>
+       </div>
+   </div>
+</body>
+</html>

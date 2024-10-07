@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Header Part</title>
+<!-- <link rel="stylesheet" th:href="@{/css/bootstrap.css}"> -->
+<link rel="stylesheet" th:href="@{/css/headStyle.css}">
+</head>
+<body> 
+
+   <div class="hd-main" th:fragment="headerPart">
+      <div>
+         <a th:href="@{/back}">
+            <img id="lgo" alt="logo" th:src="@{/images/logo.jpg}">
+         </a>
+      </div>
+      
+      <div class="search-box">
+         <form th:action="@{/search}" method="get" style="display: flex;">
+            <input type="search" placeholder="Search Movies By Name" aria-label="Search" class="search-input" name="movieName">
+              <button class="search-button">
+              <span class="search-icon"></span>
+              </button>
+         </form>
+      </div>
+      
+      <div class="button-container">
+         <a th:href="@{/contact}" class="btn login-btn" id="usr-btn">Contact Us</a>
+         <a th:href="@{/about}" class="btn signup-btn" id="usr-btn">About</a>
+      </div>
+   </div>
+</body>
+</html>

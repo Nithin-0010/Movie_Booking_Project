@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>User Home</title>
+<link rel="stylesheet" th:href="@{/css/headStyle.css}">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css}">
+</head>
+<body> 
+   <div>
+      <div class="hd-main">
+         <div>
+           <a th:href="@{/back}">
+             <img id="lgo" alt="logo" th:src="@{/images/logo.jpg}">
+          </a>
+         </div>
+      
+         <div class="search-box">
+            <form th:action="@{/search}" method="get" style="display: flex;">
+               <input type="search" placeholder="Search Movies By Name" aria-label="Search" class="search-input" name="movieName">
+               <button class="search-button">
+               <span class="search-icon"></span>
+               </button>
+            </form>
+        </div>
+      
+        <div class="button-container">
+           <a th:href="@{/settings}" class="btn login-btn" id="usr-btn"><span th:text="${user.name}"></span></a>
+           <a th:href="@{/logout}" class="btn signup-btn" id="usr-btn">Logout</a>
+        </div>
+      </div>
+      
+      <div>
+      </div>
+   </div>
+   
+   <div class="container"> <!-- styles set as flex -->
+      <aside class="sidebar" style="height: 100vh; width: 190px;">
+            <div class="sidebar-header">
+                <h1>Inamkes Gold Theatre</h1>
+                <span style="color: #0056b3; font-size: 12px" th:text="${booked}"></span>
+                <span style="color: #0056b3; font-size: 12px" th:text="${failed}"></span>
+                <span style="color: red; font-size: 12px" th:text="${exception}"></span>
+            </div>
+            <nav class="nav">
+                <a th:href="@{/home}"><i class="fa fa-home"></i> Home</a>
+                <a th:href="@{/settings}"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a th:href="@{/orders}"><i class="fa-solid fa-clock-rotate-left"></i> Orders</a>
+                <a th:href="@{/about}"><i class="fa-solid fa-address-card"></i> About Us</a>
+                <a th:href="@{/contact}"><i class="fa fa-phone"></i> Contact us</a>
+                <a th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="movies" th:each="Movies : ${allMovies}">
+                <div class="movie-card">
+                    <form th:action="@{/bookSeats}" method="get">
+                        <img th:src="${Movies.movieImg}" alt="Movie poster">
+                        <div class="movie-info">
+                           <h3 th:text="${Movies.movieName}"></h3>
+                           <p th:text="${Movies.movieGenre}"></p>
+                           <button type="submit" class="movie-btn" name="movieName" th:value="${Movies.movieName}">Book now</button>
+                        </div>
+                    </form>
+                </div> 
+            </div>
+        </main>
+   </div>
+   <!--  <div th:replace="~{/common/footer :: footerPart}"></div> -->
+      
+</body>
+</html>

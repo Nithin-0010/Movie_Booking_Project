@@ -1,0 +1,45 @@
+@charset "UTF-8";
+.add-movie-section {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    margin: 20px auto;
+}
+
+.add-movie-section h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.add-movie-section form label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+.add-movie-section form input[type="text"],
+.add-movie-section form input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.add-movie-section form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.add-movie-section form button:hover {
+    background-color: #0056b3;
+}

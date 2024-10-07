@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/bookStyle.css}"> 
+    <link rel="stylesheet" th:href="@{/css/headStyle.css}"> 
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css}">
+</head>
+<body>
+    <div class="hd-main">
+        <div>
+            <a href="/back">
+                <img id="lgo" alt="logo" src="/images/logo.jpg">
+            </a>
+        </div>
+        <div class="search-box">
+            <form action="/search" method="get" style="display: flex;">
+                <input type="search" placeholder="Search Movies By Name" aria-label="Search" class="search-input" name="movieName">
+                <button class="search-button">
+                    <span class="search-icon"></span>
+                </button>
+            </form>
+        </div>
+        <div class="button-container">
+            <a href="/settings" class="btn login-btn" id="usr-btn"><span th:text="${user.name}"></span></a>
+            <a href="/logout" class="btn signup-btn" id="usr-btn">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <aside class="sidebar" style="height: auto; width: 190px;">
+            <div class="sidebar-header">
+                <h1>Inamkes Gold Theatre</h1>
+            </div>
+            <nav class="nav">
+                <a href="/home"><i class="fa fa-home"></i> Home</a>
+                <a href="/settings"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="/allUsers"><i class="fa-solid fa-users"></i> All users</a>
+                <a href="/orders"><i class="fa-solid fa-clock-rotate-left"></i> Orders</a>
+                <a href="/about"><i class="fa-solid fa-address-card"></i> About Us</a>
+                <a href="/contact"><i class="fa fa-phone"></i> Contact us</a>
+                <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </nav>
+        </aside>
+
+        <main class="main-booking-content">
+            <div class="booking-container">
+                <h2 style="text-align: center;">Please schedule your date and time</h2>
+                <div class="date-time-selection">
+                    <form th:action="@{/check-time}" method="post" id="form">
+                       <select name="localtime" id="timeselect">
+                        <option th:value="${time}" th:text="${time}"></option>
+                        <option value="09:00">09:00 am</option>
+                        <option value="12:00">12:00 pm</option>
+                        <option value="03:00">03:00 pm</option>
+                        <option value="06:00">06:00 pm</option>
+                    </select>
+                    <input type="date" name="localdate" th:value="${date}" th:min="${min}" th:max="${max}" id="dateselect">
+                    </form>
+                  
+                </div>
+
+                <div class="summary">
+                    <h3 id="seat-dynamic">Selected Seats : 0</h3>
+                    <p id="show-price" >Total Amount: 0</p>
+                    <p></p>
+                </div>
+
+                <h2 th:text="${bookdMovie.movieName}" style="margin-left: 10px;"></h2>
+                <p th:text="${bookdMovie.movieGenre}" style="margin-left: 10px;"></p>
+
+                <form th:action="@{/seatSelection}" method="post">
+                <h3 style="text-align: center;">Please select your seat</h3>
+                <div class="seat-key">
+                    <div class="key-item">
+                        <div class="already-booked"></div>
+                        <p>Already Booked</p>
+                    </div>
+                    <div class="key-item">
+                        <div class="available"></div>
+                        <p>Seat Available</p>
+                    </div>
+                </div>
+
+               
+                <div class="seat-selection">
+                    <div class="row col1">
+                        <input type="checkbox" id="seat1" autocomplete="off" hidden="hidden"
+						th:classappend="${#lists.contains(seats, 'seat1')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat1')}" th:disabled="${#lists.contains(seats, 'seat1')}" value="seat1"
+						name="seatNo[]"><label class="btn btn-success seat" for="seat1">1</label>&nbsp;&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat2" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat2')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat2')}" th:disabled="${#lists.contains(seats, 'seat2')}" value="seat2"
+						name="seatNo[]"><label class="btn btn-success" for="seat2">2</label>&nbsp;&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat3" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat3')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat3')}" th:disabled="${#lists.contains(seats, 'seat3')}" value="seat3"
+						name="seatNo[]"><label class="btn btn-success" for="seat3">3</label>&nbsp;&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat4" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat4')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat4')}" th:disabled="${#lists.contains(seats, 'seat4')}" value="seat4"
+						name="seatNo[]"><label class="btn btn-success" for="seat4">4</label>&nbsp;&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat5" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat5')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat5')}" th:disabled="${#lists.contains(seats, 'seat5')}" value="seat5"
+						name="seatNo[]"><label class="btn btn-success" for="seat5">5</label><br>
+
+					    <input type="checkbox" id="seat6" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat6')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat6')}" th:disabled="${#lists.contains(seats, 'seat6')}" value="seat6"
+						name="seatNo[]"><label class="btn btn-success" for="seat6">6</label>&nbsp;&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat7" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat7')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat7')}" th:disabled="${#lists.contains(seats, 'seat7')}" value="seat7"
+						name="seatNo[]"><label class="btn btn-success" for="seat7">7</label>&nbsp;&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat8" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat8')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat8')}" th:disabled="${#lists.contains(seats, 'seat8')}" value="seat8"
+						name="seatNo[]"><label class="btn btn-success" for="seat8">8</label>&nbsp;&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat9" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat9')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat9')}" th:disabled="${#lists.contains(seats, 'seat9')}" value="seat9"
+						name="seatNo[]"><label class="btn btn-success" for="seat9">9</label>&nbsp;&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat10" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat10')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat10')}" th:disabled="${#lists.contains(seats, 'seat10')}"
+						value="seat10" name="seatNo[]"><label
+						class="btn btn-success" for="seat10">10</label>
+                    </div>
+                    <div class="row col1">
+                         <input
+						type="checkbox" id="seat11" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat11')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat11')}" th:disabled="${#lists.contains(seats, 'seat11')}" value="seat11"
+						name="seatNo[]"><label class="btn btn-success" for="seat11">11</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat12" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat12')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat12')}" th:disabled="${#lists.contains(seats, 'seat12')}"
+						value="seat12" name="seatNo[]"><label
+						class="btn btn-success" for="seat12">12</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat13" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat13')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat13')}" th:disabled="${#lists.contains(seats, 'seat13')}"
+						value="seat13" name="seatNo[]"><label
+						class="btn btn-success" for="seat13">13</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat14" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat14')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat14')}" th:disabled="${#lists.contains(seats, 'seat14')}"
+						value="seat14" name="seatNo[]"><label
+						class="btn btn-success" for="seat14">14</label>&nbsp;&nbsp;
+ 
+					    <input type="checkbox" id="seat15" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat15')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat15')}" th:disabled="${#lists.contains(seats, 'seat15')}"
+						value="seat15" name="seatNo[]"><label
+						class="btn btn-success" for="seat15">15</label><br>
+											
+					    <input
+						type="checkbox" id="seat16" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat16')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat16')}" th:disabled="${#lists.contains(seats, 'seat16')}" value="seat16"
+						name="seatNo[]"><label class="btn btn-success" for="seat16">16</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat17" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat17')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat17')}" th:disabled="${#lists.contains(seats, 'seat17')}"
+						value="seat17" name="seatNo[]"><label
+						class="btn btn-success" for="seat17">17</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat18" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat18')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat18')}" th:disabled="${#lists.contains(seats, 'seat18')}"
+						value="seat18" name="seatNo[]"><label
+						class="btn btn-success" for="seat18">18</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat19" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat19')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat19')}" th:disabled="${#lists.contains(seats, 'seat19')}"
+						value="seat19" name="seatNo[]"><label
+						class="btn btn-success" for="seat19">19</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat20" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat20')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat20')}" th:disabled="${#lists.contains(seats, 'seat20')}"
+						value="seat20" name="seatNo[]"><label
+						class="btn btn-success" for="seat20">20</label>
+                    </div>
+
+                    <div class="row col1">
+                         <input type="checkbox" id="seat21" autocomplete="off" hidden="hidden"
+						th:classappend="${#lists.contains(seats, 'seat21')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat21')}" th:disabled="${#lists.contains(seats, 'seat21')}" value="seat21"
+						name="seatNo[]"><label class="btn btn-success" for="seat21">21</label>&nbsp;&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat22" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat22')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat22')}" th:disabled="${#lists.contains(seats, 'seat22')}" value="seat22"
+						name="seatNo[]"><label class="btn btn-success" for="seat22">22</label>&nbsp;&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat23" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat23')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat23')}" th:disabled="${#lists.contains(seats, 'seat23')}" value="seat23"
+						name="seatNo[]"><label class="btn btn-success" for="seat23">23</label>&nbsp;&nbsp;&nbsp;
+
+				    	<input type="checkbox" id="seat24" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat24')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat24')}" th:disabled="${#lists.contains(seats, 'seat24')}" value="seat24"
+						name="seatNo[]"><label class="btn btn-success" for="seat24">24</label>&nbsp;&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat25" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat25')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat25')}" th:disabled="${#lists.contains(seats, 'seat25')}" value="seat25"
+						name="seatNo[]"><label class="btn btn-success" for="seat25">25</label><br>
+
+					    <input type="checkbox" id="seat26" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat26')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat26')}" th:disabled="${#lists.contains(seats, 'seat26')}" value="seat26"
+						name="seatNo[]"><label class="btn btn-success" for="seat26">26</label>&nbsp;&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat27" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat27')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat27')}" th:disabled="${#lists.contains(seats, 'seat27')}" value="seat27"
+						name="seatNo[]"><label class="btn btn-success" for="seat27">27</label>&nbsp;&nbsp;&nbsp;
+
+				     	<input type="checkbox" id="seat28" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat28')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat28')}" th:disabled="${#lists.contains(seats, 'seat28')}" value="seat28"
+						name="seatNo[]"><label class="btn btn-success" for="seat28">28</label>&nbsp;&nbsp;&nbsp;
+
+				     	<input type="checkbox" id="seat29" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat29')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat29')}" th:disabled="${#lists.contains(seats, 'seat29')}" value="seat29"
+						name="seatNo[]"><label class="btn btn-success" for="seat29">29</label>&nbsp;&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat30" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat30')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat30')}" th:disabled="${#lists.contains(seats, 'seat30')}"
+						value="seat30" name="seatNo[]"><label
+						class="btn btn-success" for="seat30">30</label>
+                   </div>
+                   <div class="row col1">
+                         <input
+						type="checkbox" id="seat31" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat31')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat31')}" th:disabled="${#lists.contains(seats, 'seat31')}" value="seat31"
+						name="seatNo[]"><label class="btn btn-success" for="seat31">31</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat32" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat32')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat32')}" th:disabled="${#lists.contains(seats, 'seat32')}"
+						value="seat32" name="seatNo[]"><label
+						class="btn btn-success" for="seat32">32</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat33" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat33')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat33')}" th:disabled="${#lists.contains(seats, 'seat33')}"
+						value="seat33" name="seatNo[]"><label
+						class="btn btn-success" for="seat33">33</label>&nbsp;&nbsp;
+  
+					    <input type="checkbox" id="seat34" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat34')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat34')}" th:disabled="${#lists.contains(seats, 'seat34')}"
+						value="seat34" name="seatNo[]"><label
+						class="btn btn-success" for="seat34">34</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat35" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat35')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat35')}" th:disabled="${#lists.contains(seats, 'seat35')}"
+						value="seat35" name="seatNo[]"><label
+						class="btn btn-success" for="seat35">35</label><br>
+							 
+		                <input type="checkbox" id="seat36" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat36')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat36')}" th:disabled="${#lists.contains(seats, 'seat36')}" value="seat36"
+						name="seatNo[]"><label class="btn btn-success" for="seat36">36</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat37" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat37')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat37')}" th:disabled="${#lists.contains(seats, 'seat37')}"
+						value="seat37" name="seatNo[]"><label
+						class="btn btn-success" for="seat37">37</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat38" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat38')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat38')}" th:disabled="${#lists.contains(seats, 'seat38')}"
+						value="seat38" name="seatNo[]"><label
+						class="btn btn-success" for="seat38">38</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat39" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat39')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat39')}" th:disabled="${#lists.contains(seats, 'seat39')}"
+						value="seat39" name="seatNo[]"><label
+						class="btn btn-success" for="seat39">39</label>&nbsp;&nbsp;
+
+					    <input type="checkbox" id="seat40" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat40')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat40')}" th:disabled="${#lists.contains(seats, 'seat40')}"
+						value="seat40" name="seatNo[]"><label
+						class="btn btn-success" for="seat40">40</label>
+                    </div>
+
+                  <!--  <div class="row col1">
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat41">
+                        <label for="seat41">41</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat42">
+                        <label for="seat42">42</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat43">
+                        <label for="seat43">43</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat44">
+                        <label for="seat44">44</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat45">
+                        <label for="seat45">45</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat46">
+                        <label for="seat46">46</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat47">
+                        <label for="seat47">47</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat48">
+                        <label for="seat48">48</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat49">
+                        <label for="seat49">49</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat50">
+                        <label for="seat50">50</label></div>
+                    </div>
+                    <div class="row col2">
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat51">
+                        <label for="seat51">51</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat52">
+                        <label for="seat52">52</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat53">
+                        <label for="seat53">53</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat54">
+                        <label for="seat54">54</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat55">
+                        <label for="seat55">55</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat56">
+                        <label for="seat56">56</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat57">
+                        <label for="seat57">57</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat58">
+                        <label for="seat58">58</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat59">
+                        <label for="seat59">59</label></div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat60">
+                        <label for="seat60">60</label></div>
+                    </div>
+                    
+                     <div class="row col1">
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">61</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">62</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">63</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">64</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">65</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">66</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">67</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">68</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">69</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">70</div>
+                    </div>
+                    <div class="row col2">
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">71</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">72</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">73</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">74</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">75</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">76</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">77</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">78</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">79</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">80</div>
+                    </div>
+                    
+                    <div class="row col1">
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">81</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">82</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">83</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">84</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">85</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">86</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">87</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">88</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">89</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">90</div>
+                    </div>
+                    <div class="row col2">
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">91</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">92</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">93</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">94</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">95</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">96</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">97</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">98</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">99</div>
+                        <div class="seat"><input type="checkbox" hidden="hidden" name="seat11">100</div>
+                    </div>    --> 
+                   
+                   
+                </div>
+                
+                
+                <div style="display: flex; justify-content: center;">
+                  <!--  <input type="hidden" id="totalSeats" th:field="*{totalSeats}" />
+                     <input type="hidden" id="totalPrice" th:field="*{totalPrice}" />
+                     <input type="hidden" th:value="${usrInfo.email}" th:field="*{customer_email}" />   --> 
+                     <button type="submit" class="book-seat-btn">Book Seat</button>
+                </div>
+               </form> 
+            </div>
+            
+        </main>
+    </div>
+
+  <script>
+	
+		document.getElementById("dateselect").onchange = function() {
+			document.getElementById("form").submit();
+		}
+
+		document.getElementById("timeselect").onchange = function() {
+			document.getElementById("form").submit();
+		}
+		
+		
+		const mySeats = document.getElementById('seat-dynamic');
+		const myPrice = document.getElementById('show-price');
+		var total = 0;
+		var seat = [];
+		const checkBox = document.querySelectorAll('input[type="checkbox"]');
+		for (var i = 0; i < checkBox.length; i++) {
+			checkBox[i].addEventListener('click', displayValue);
+
+		}
+		function displayValue(e) {
+			var myValue = 270;
+			if (e.target.checked == true) {
+				seat.push(e.target.id);
+
+				total += myValue;
+
+			} else {
+				var index = seat.indexOf(e.target.id);
+				seat.splice(index, 1);
+				total -= myValue;
+
+			}
+			// seat.join("");
+			console.log(seat);
+			console.log(total);
+			mySeats.innerHTML = seat;
+			myPrice.innerHTML = total;
+		}
+	</script>
+
+</body>
+</html>

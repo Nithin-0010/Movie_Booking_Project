@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About Us</title>
+    <link rel="stylesheet" th:href="@{/css/aboutStyle.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a th:href="@{/back}" class="movie-btn"><i class="fa-solid fa-arrow-left"></i></a>
+            <h1>Contact Us</h1>
+        </div>
+    </header>
+   <section class="contact content">
+       <h2>Contact Us</h2>
+       <p>If you have any questions, feel free to reach out to us!</p>
+          <ul>
+              <li>Email: <a href="mailto:info@inamkesgoldtheatre.com">info@inamkesgoldtheatre.com</a></li>
+              <li>Phone: +1-234-567-890</li>
+              <li>Address: 123 Movie Lane, Cinema City, CC 12345</li>
+         </ul>
+   </section>
+   
+   <footer>
+        <p>&copy; 2024 Inamkes Gold Theatre. All rights reserved.</p>
+   </footer>
+</body>
+</html>
