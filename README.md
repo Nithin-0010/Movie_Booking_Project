@@ -20,5 +20,5 @@ This project is a web-based movie booking application where admins can manage mo
 * Hibernate
 * MySQL Database
 * JPA
-* HTML, CSS, JavaScript
-* 
+* Thymeleaf for HTML , CSS, JavaScript
+  
