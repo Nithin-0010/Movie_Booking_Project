@@ -20,6 +20,14 @@ public class AdminService {
 	
 	@Autowired
 	private HistoryRepository hisRepo;
+
+	@PostConstruct
+        public void insertDefaultAdmin() {
+            if (adRepo.count() == 0) { // Check if no admin entries exist
+                Admin defaultAdmin = new Admin();
+                adRepo.save(defaultAdmin);
+            }
+        }
 	
 	public Admin logingData(String email, String password) {
 		Admin logData = adRepo.findByEmailAndPassword(email, password);
