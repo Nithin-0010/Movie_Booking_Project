@@ -48,8 +48,9 @@ public class Admin {
 		this.password = password;
 	}
 	public Admin() {
-		super();
-		// TODO Auto-generated constructor stub
+	    this.name = "Admin";
+	    this.email = "admin@email";
+	    this.password = "1234";
 	}
 	@Override
 	public String toString() {
