@@ -79,15 +79,7 @@ public class MovieBookingController {
     // Login check and redirection to home
     @PostMapping("/loginCheck")
     public String loginUser(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession usrSession, Model mdl) {      
-        
-        // To set admin credentials
-    	Admin admin = new Admin();
-    	admin.setName("Admin");
-    	admin.setEmail("admin@email");
-    	admin.setPassword("1234");
-    	adminDao.updateAdmin(admin);
-    	
-    	
+            	
         Admin adminLogData = adminDao.logingData(email, password);
         if(adminLogData != null) {
         	mdl.addAttribute("admin", adminLogData);
